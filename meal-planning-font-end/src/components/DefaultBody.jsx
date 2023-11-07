@@ -1,7 +1,11 @@
+import { Box } from "@chakra-ui/react";
+
 export default function DefaultBody() {
   return (
     <>
-      <div>Home Content</div>
+      <Box p="6">
+        <Box>Home Content</Box>
+      </Box>
     </>
   );
 }
