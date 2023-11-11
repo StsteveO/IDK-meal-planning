@@ -1,10 +1,19 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 
 export default function DefaultBody() {
   return (
     <>
       <Box p="6">
-        <Box>Home Content</Box>
+        <Box>
+          <Heading>
+            What Do You Want To Eat ?
+          </Heading>
+        </Box>
+        <Box>
+          <Text>
+            If your answer is IDK! you are int he right place. 
+          </Text>
+        </Box>
       </Box>
     </>
   );
