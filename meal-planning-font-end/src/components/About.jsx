@@ -9,7 +9,7 @@ export default function About() {
         </Box>
         <Box>
           <Text>
-            IDK meal planning is designed to solve a univeral problem...
+            IDK meal planning is designed to answer a univeral question... What do you want to eat?
           </Text>
         </Box>
       </Box>

@@ -5,10 +5,11 @@ import {
   Spacer,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 export default function Navbar() {
+  const location= useLocation();
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -21,10 +22,20 @@ export default function Navbar() {
             <Box>
               <Link to="/">Cover Page</Link>
             </Box>
-            <Box>
+            <Box
+              color={location.pathname === "/mainPage/:" && "red"}
+              borderBottom={location.pathname === "/mainPage/:" && "3px solid"}
+              borderColor={location.pathname === "/mainPage/:" && "red"}
+            >
               <Link to="/mainPage/:">Home</Link>
             </Box>
-            <Box>
+            <Box
+              color={location.pathname === "/mainPage/about" && "red"}
+              borderBottom={
+                location.pathname === "/mainPage/about" && "3px solid"
+              }
+              borderColor={location.pathname === "/mainPage/about" && "red"}
+            >
               <Link to="/mainPage/about">About</Link>
             </Box>
           </Box>
@@ -41,10 +52,21 @@ export default function Navbar() {
             <Box mb="2">
               <Link to="/">Cover Page</Link>
             </Box>
-            <Box mb="2">
+            <Box
+              mb="2"
+              color={location.pathname === "/mainPage/:" && "red"}
+              borderBottom={location.pathname === "/mainPage/:" && "3px solid"}
+              borderColor={location.pathname === "/mainPage/:" && "red"}
+            >
               <Link to="/mainPage/:">Home</Link>
             </Box>
-            <Box>
+            <Box
+              color={location.pathname === "/mainPage/about" && "red"}
+              borderBottom={
+                location.pathname === "/mainPage/about" && "3px solid"
+              }
+              borderColor={location.pathname === "/mainPage/about" && "red"}
+            >
               <Link to="/mainPage/about">About</Link>
             </Box>
           </Collapse>
