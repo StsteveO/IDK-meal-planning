@@ -13,7 +13,7 @@ export default function MainPage() {
 
   // const { value } = useSelector((state) => state.counter);
   const countValue = useSelector((state) => state.counter.value);
-  const listValue= useSelector((state)=> state.ingredientList.value);
+  const ingredients= useSelector((state)=> state.ingredientList.value);
   const dispatch = useDispatch();
 
   return (
@@ -30,7 +30,8 @@ export default function MainPage() {
       <Button mx="3" variant="outline" onClick={() => dispatch(addBy(50))}>
         Add 50
       </Button>
-      <Box p="5">List: {listValue}</Box>
+      <Box p="5">List: {ingredients}</Box>
+      {console.log(ingredients)}
       <Button
         mx="3"
         variant="outline"
