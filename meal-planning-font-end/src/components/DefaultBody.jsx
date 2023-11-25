@@ -14,6 +14,11 @@ export default function DefaultBody() {
             If your answer is IDK! you are int he right place. 
           </Text>
         </Box>
+        <Box>
+          <Heading size="lg">
+            Enter (one at a time) ingredients you have.
+          </Heading>
+        </Box>
       </Box>
     </>
   );
