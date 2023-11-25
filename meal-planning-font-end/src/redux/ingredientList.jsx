@@ -7,9 +7,14 @@ const ingredientList = createSlice({
   },
   reducers: {
     addIngredient: (state, action) => {
-      let newIngredient = action.payload.toLowerCase();
+      let newIngredient = {
+        ingredient: action.payload.toLowerCase(),
+        ingredientId: crypto.randomUUID(),
+      };
       let list = [...state.value, newIngredient];
-      let updatedList = list.sort();
+      let updatedList = list.sort((a, b)=>{
+        return a.ingredient.localeCompare(b.ingredient);
+      });
 
       state.value = updatedList;
     },
