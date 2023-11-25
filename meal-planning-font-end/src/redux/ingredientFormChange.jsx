@@ -6,14 +6,6 @@ const ingredientFormChange = createSlice({
     value: "",
   },
   reducers: {
-    addIngredient: (state, action) => {
-      let newIngregient = action.payload.toLowerCase();
-      let list = [...state.value, newIngregient];
-      let updatedList = list.sort();
-
-      state.value = updatedList;
-    },
-
     formChange: (state, action)=> {
         state.value= action.payload
     },

@@ -7,8 +7,8 @@ const ingredientList = createSlice({
   },
   reducers: {
     addIngredient: (state, action) => {
-      let newIngregient = action.payload.toLowerCase();
-      let list = [...state.value, newIngregient];
+      let newIngredient = action.payload.toLowerCase();
+      let list = [...state.value, newIngredient];
       let updatedList = list.sort();
 
       state.value = updatedList;

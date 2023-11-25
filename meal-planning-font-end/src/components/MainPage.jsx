@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { add, addBy, minus } from "../redux/counter";
 import { addIngredient } from "../redux/ingredientList"
 import IngredientsForm from "./IngredientsForm";
+import IngredientsReadout from "./IngredientsReadout";
 
 export default function MainPage() {
   const { name } = useParams();
@@ -20,6 +21,8 @@ export default function MainPage() {
     <>
       <Navbar />
       <IngredientsForm />
+      <IngredientsReadout />
+      
       <Box p="5">Count: {countValue}</Box>
       <Button mx="3" variant="outline" onClick={() => dispatch(add())}>
         Add
