@@ -9,9 +9,13 @@ const ingredientFormChange = createSlice({
     formChange: (state, action)=> {
         state.value= action.payload
     },
+
+    clearForm: (state)=>{
+      state.value= ""
+    },
   },
 });
 
-export const { addIngredient, formChange } = ingredientFormChange.actions;
+export const { formChange, clearForm } = ingredientFormChange.actions;
 
 export default ingredientFormChange.reducer;

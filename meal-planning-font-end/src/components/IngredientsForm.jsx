@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 // import { addIngredient } from "../redux/ingredientList";
-import { formChange } from "../redux/ingredientFormChange";
+import { formChange, clearForm } from "../redux/ingredientFormChange";
 import { addIngredient } from "../redux/ingredientList";
 
 export default function IngredientsForm() {
@@ -17,6 +17,7 @@ export default function IngredientsForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addIngredient(formReading));
+    dispatch(clearForm());
   };
   const formReading = useSelector((state) => state.ingredientFormChange.value);
   return (
@@ -30,6 +31,7 @@ export default function IngredientsForm() {
               size="lg"
               placeholder="ex. apple"
               onChange={handleFormChange}
+              value={formReading}
             />
             <FormHelperText>Type single ingredient</FormHelperText>
           </FormControl>

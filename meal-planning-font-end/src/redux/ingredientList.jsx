@@ -23,14 +23,6 @@ const ingredientList = createSlice({
       let updatedList= state.value.filter((item)=> item.ingredientId !== action.payload);
       state.value = updatedList;
     },
-
-    remove: (state) => {
-      state.value -= 1;
-    },
-
-    addBy: (state, action) => {
-      state.value += action.payload;
-    },
   },
 });
 
