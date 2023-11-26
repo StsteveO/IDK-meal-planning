@@ -19,6 +19,11 @@ const ingredientList = createSlice({
       state.value = updatedList;
     },
 
+    removeIngredient: (state, action)=>{
+      let updatedList= state.value.filter((item)=> item.ingredientId !== action.payload);
+      state.value = updatedList;
+    },
+
     remove: (state) => {
       state.value -= 1;
     },
@@ -29,6 +34,6 @@ const ingredientList = createSlice({
   },
 });
 
-export const { addIngredient, remove, addBy } = ingredientList.actions;
+export const { addIngredient, removeIngredient, remove, addBy } = ingredientList.actions;
 
 export default ingredientList.reducer;
