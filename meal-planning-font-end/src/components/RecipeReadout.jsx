@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, Heading, Image, Stack } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Card, CardBody, Heading, Image, Stack } from "@chakra-ui/react";
 const spoonacularAPIKey= import.meta.env.VITE_spoonacularAPIKey
 import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeList } from "../redux/recipeList";
@@ -35,15 +35,46 @@ export default function RecipeReadout() {
       <Box>
         {recipes.map((recipe)=>{
           return (
-            <Card key={recipe.id}>
+            <Card
+              key={recipe.id}
+              direction="row"
+              m="4"
+              variant="outline"
+              overflow="hidden"
+              border="2px black solid"
+            >
+              <Image
+                src={recipe.image}
+                alt={`Image of ${recipe.title}`}
+                objectFit="cover"
+                // borderRadius="lg"
+              />
               <CardBody>
-                <Image src={recipe.image} alt={`Image of ${recipe.title}`} borderRadius="lg" />
                 <Stack>
-                  <Heading>{recipe.title}</Heading>
+                  <Heading size="md">{recipe.title}</Heading>
+                  <Accordion defaultIndex={[0]} allowMultiple>
+                    <AccordionItem border="1px black solid" borderRadius="lg" p="2">
+                      <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                          Missing Ingredients ({recipe.missedIngredientCount})
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                      <AccordionPanel>
+                        <ul>
+                          {recipe.missedIngredients.map((missedIngredient)=>{
+                            return (
+                              <li key={missedIngredient.id}>{missedIngredient.name}</li>
+                            );
+                          })}
+                        </ul>
+                      </AccordionPanel>
+                    </AccordionItem>
+                  </Accordion>
                 </Stack>
               </CardBody>
             </Card>
-          )
+          );
         })}
       </Box>
     </Box>
