@@ -1,7 +1,8 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Card, CardBody, Heading, Image, Stack } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, ButtonGroup, Card, CardBody, CardFooter, Heading, Image, Stack } from "@chakra-ui/react";
 const spoonacularAPIKey= import.meta.env.VITE_spoonacularAPIKey
 import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeList } from "../redux/recipeList";
+import { AddIcon, ViewIcon } from "@chakra-ui/icons";
 
 export default function RecipeReadout() {
   const dispatch = useDispatch();
@@ -52,8 +53,12 @@ export default function RecipeReadout() {
               <CardBody>
                 <Stack>
                   <Heading size="md">{recipe.title}</Heading>
-                  <Accordion defaultIndex={[0]} allowMultiple>
-                    <AccordionItem border="1px black solid" borderRadius="lg" p="2">
+                  <Accordion defaultIndex={[]} allowMultiple>
+                    <AccordionItem
+                      border="1px black solid"
+                      borderRadius="lg"
+                      p="2"
+                    >
                       <AccordionButton>
                         <Box as="span" flex="1" textAlign="left">
                           Missing Ingredients ({recipe.missedIngredientCount})
@@ -62,15 +67,27 @@ export default function RecipeReadout() {
                       </AccordionButton>
                       <AccordionPanel>
                         <ul>
-                          {recipe.missedIngredients.map((missedIngredient)=>{
+                          {recipe.missedIngredients.map((missedIngredient) => {
                             return (
-                              <li key={missedIngredient.id}>{missedIngredient.name}</li>
+                              <li key={missedIngredient.id}>
+                                {missedIngredient.name}
+                              </li>
                             );
                           })}
                         </ul>
                       </AccordionPanel>
                     </AccordionItem>
                   </Accordion>
+                  <CardFooter pl="0">
+                    <ButtonGroup>
+                      <Button border="1px black solid" borderRadius="lg" leftIcon={<ViewIcon />}>
+                        View
+                      </Button>
+                      <Button border="1px black solid" borderRadius="lg" leftIcon={<AddIcon />}>
+                        Add to Favorites
+                      </Button>
+                    </ButtonGroup>
+                  </CardFooter>
                 </Stack>
               </CardBody>
             </Card>
