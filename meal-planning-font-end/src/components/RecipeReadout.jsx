@@ -56,8 +56,19 @@ export default function RecipeReadout() {
       console.error(`Error getting recipes: ${error}`);
     }
   };
-  const recipeInstructions = (event) => {
+  const recipeInstructions = async (event) => {
     console.log(event.target.id);
+    let recipeId= event.target.id;
+
+    try{
+      const response = await fetch(
+        `https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${spoonacularAPIKey}`
+      );
+      const data= await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(`Error getting recipe instructions: ${error}`);
+    }
   };
   return (
     <Box px="6" py="3">
