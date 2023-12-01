@@ -13,18 +13,29 @@ import {
   Heading,
   IconButton,
   Image,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Stack,
+  useDisclosure,
 } from "@chakra-ui/react";
 const spoonacularAPIKey = import.meta.env.VITE_spoonacularAPIKey;
 import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeList } from "../redux/recipeList";
+import { updateRecipeInstructions } from "../redux/recipeInstructions";
 import { AddIcon, ViewIcon } from "@chakra-ui/icons";
 
 export default function RecipeReadout() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredientList.value);
   const recipes = useSelector((state) => state.recipeList.value);
-  console.log(recipes);
+  const recipeInstructions= useSelector((state)=> state.recipeInstructions.value);
+  // console.log(recipes);
   // console.log(spoonacularAPIKey);
   const updatedIngredientList = ingredients.map((item) => {
     if (typeof item === "object") {
@@ -56,19 +67,22 @@ export default function RecipeReadout() {
       console.error(`Error getting recipes: ${error}`);
     }
   };
-  const recipeInstructions = async (event) => {
+  const getRecipeInstructions = async (event) => {
     console.log(event.target.id);
-    let recipeId= event.target.id;
+    let recipeId = event.target.id;
 
-    try{
+    try {
       const response = await fetch(
         `https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${spoonacularAPIKey}`
       );
-      const data= await response.json();
-      console.log(data);
+      const data = await response.json();
+      // console.log(data);
+      dispatch(updateRecipeInstructions(data));
     } catch (error) {
       console.error(`Error getting recipe instructions: ${error}`);
     }
+    onOpen();
+    console.log(recipeInstructions);
   };
   return (
     <Box px="6" py="3">
@@ -125,10 +139,24 @@ export default function RecipeReadout() {
                         borderRadius="lg"
                         // leftIcon={<ViewIcon />}
                         id={recipe.id}
-                        onClick={recipeInstructions}
+                        onClick={getRecipeInstructions}
+                        // onClick={onOpen}
                       >
                         View Recipe
                       </Button>
+                      {/* <Modal
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        closeOnOverlayClick={false}
+                      >
+                        <ModalOverlay bg="blackAlpha.200" />
+                        <ModalContent>
+                          <ModalHeader>Header</ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody>Body</ModalBody>
+                          <ModalFooter>Footer</ModalFooter>
+                        </ModalContent>
+                      </Modal> */}
                       <Button
                         border="1px black solid"
                         borderRadius="lg"
@@ -144,6 +172,15 @@ export default function RecipeReadout() {
           );
         })}
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Header</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Body</ModalBody>
+          <ModalFooter>Footer</ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }
