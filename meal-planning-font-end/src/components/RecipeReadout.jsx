@@ -177,7 +177,16 @@ export default function RecipeReadout() {
         <ModalContent>
           <ModalHeader>Header</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>Body</ModalBody>
+          <ModalBody>
+            BODY
+            {recipeInstructions[0].steps.map((step)=>{
+              return(
+                <Box key={step.number} py="3">
+                  {`Step ${step.number}: ${step.step}`}
+                </Box>
+              )
+            })}
+          </ModalBody>
           <ModalFooter>Footer</ModalFooter>
         </ModalContent>
       </Modal>
