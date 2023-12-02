@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const recipeInstructions = createSlice({
   name: "recipe instructions",
   initialState: {
-    value: ["original"],
+    value: "",
   },
   reducers: {
     updateRecipeInstructions: (state, action) => {

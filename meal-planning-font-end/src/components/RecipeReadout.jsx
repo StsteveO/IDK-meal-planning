@@ -172,24 +172,64 @@ export default function RecipeReadout() {
           );
         })}
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Header</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            BODY
-            {recipeInstructions[0].steps.map((step)=>{
-              return(
-                <Box key={step.number} py="3">
-                  {`Step ${step.number}: ${step.step}`}
-                </Box>
-              )
-            })}
-          </ModalBody>
-          <ModalFooter>Footer</ModalFooter>
-        </ModalContent>
-      </Modal>
+      {recipeInstructions && (
+        <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Header</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              {recipeInstructions[0].name && <Box fontStyle="italic">{recipeInstructions[0].name}</Box>}
+              {recipeInstructions[0].steps.map((step) => {
+                return (
+                  <Box key={step.number} py="3">
+                    <Box
+                      fontWeight="bold"
+                      fontSize="2xl"
+                    >{`Step ${step.number}:`}</Box>
+                    <Box pb={step.ingredients.length > 0 && "3"}>
+                      {step.ingredients.length > 0 && (
+                        <Box fontStyle="italic" textDecoration="underline">
+                          Ingredients
+                        </Box>
+                      )}
+                      <ul>
+                        {step.ingredients.length > 0 &&
+                          step.ingredients.map((ingredient) => {
+                            return (
+                              <li
+                                key={ingredient.id}
+                              >{`${ingredient.name}`}</li>
+                            );
+                          })}
+                      </ul>
+                    </Box>
+                    <Box pb={step.equipment.length > 0 && "3"}>
+                      {step.equipment.length > 0 && (
+                        <Box fontStyle="italic" textDecoration="underline">
+                          Equipment
+                        </Box>
+                      )}
+                      <ul>
+                        {step.equipment.length > 0 &&
+                          step.equipment.map((equipmentItem) => {
+                            return (
+                              <li
+                                key={equipmentItem.id}
+                              >{`${equipmentItem.name}`}</li>
+                            );
+                          })}
+                      </ul>
+                    </Box>
+                    <Box>{step.step}</Box>
+                  </Box>
+                );
+              })}
+            </ModalBody>
+            <ModalFooter>Footer</ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </Box>
   );
 }
