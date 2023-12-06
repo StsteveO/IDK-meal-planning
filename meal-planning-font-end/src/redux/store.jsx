@@ -5,6 +5,7 @@ import ingredientFormChange from './ingredientFormChange';
 import recipeList from './recipeList';
 import recipeInstructions from './recipeInstructions';
 import recipeTitle from './recipeTitle';
+import favoriteRecipesList from './favoriteRecipesList';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     recipeList: recipeList,
     recipeInstructions: recipeInstructions,
     recipeTitle: recipeTitle,
+    favoriteRecipesList: favoriteRecipesList,
   },
 });
 

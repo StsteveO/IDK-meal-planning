@@ -38,6 +38,15 @@ export default function Navbar() {
             >
               <Link to="/mainPage/about">About</Link>
             </Box>
+            <Box
+              color={location.pathname === "/mainPage/favorites" && "red"}
+              borderBottom={
+                location.pathname === "/mainPage/favorites" && "3px solid"
+              }
+              borderColor={location.pathname === "/mainPage/favorites" && "red"}
+            >
+              <Link to="/mainPage/favorites">Favorites</Link>
+            </Box>
           </Box>
           <Box display={{ md: "none" }}>
             <IconButton
@@ -61,6 +70,7 @@ export default function Navbar() {
               <Link to="/mainPage/:">Home</Link>
             </Box>
             <Box
+              mb="2"
               color={location.pathname === "/mainPage/about" && "red"}
               borderBottom={
                 location.pathname === "/mainPage/about" && "3px solid"
@@ -68,6 +78,15 @@ export default function Navbar() {
               borderColor={location.pathname === "/mainPage/about" && "red"}
             >
               <Link to="/mainPage/about">About</Link>
+            </Box>
+            <Box
+              color={location.pathname === "/mainPage/favorites" && "red"}
+              borderBottom={
+                location.pathname === "/mainPage/favorites" && "3px solid"
+              }
+              borderColor={location.pathname === "/mainPage/favorites" && "red"}
+            >
+              <Link to="/mainPage/favorites">Favorites</Link>
             </Box>
           </Collapse>
         </Box>

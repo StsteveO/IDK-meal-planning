@@ -9,6 +9,7 @@ import { addIngredient } from "../redux/ingredientList"
 import IngredientsForm from "./IngredientsForm";
 import IngredientsReadout from "./IngredientsReadout";
 import RecipeReadout from "./RecipeReadout";
+import FavoriteRecipesList from "./FavoriteRecipesList";
 
 export default function MainPage() {
   const { name } = useParams();
@@ -44,7 +45,7 @@ export default function MainPage() {
         Add Ingredient
       </Button>
 
-      {name === "about" ? <About /> : <DefaultBody />}
+      {name === "about" ? <About /> : name === "favorites" ? <FavoriteRecipesList /> : <DefaultBody />}
     </>
   );
 }

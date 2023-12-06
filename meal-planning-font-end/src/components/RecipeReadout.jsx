@@ -101,6 +101,14 @@ export default function RecipeReadout() {
     onOpen();
     // console.log(recipeInstructions);
   };
+  const addRecipeToFavorites= (event) =>{
+    console.log(Number(event.target.id));
+    let clickedRecipe= Number(event.target.id);
+    let recipeAddedToFavorites = recipes.find(
+      (recipe) => recipe.id === clickedRecipe
+    );
+    console.log(recipeAddedToFavorites)
+  }
   return (
     <Box px="6" py="3">
       <Button onClick={getRecipes}>Get Recipes!</Button>
@@ -178,6 +186,8 @@ export default function RecipeReadout() {
                         border="1px black solid"
                         borderRadius="lg"
                         // leftIcon={<AddIcon />}
+                        id={recipe.id}
+                        onClick={addRecipeToFavorites}
                       >
                         Add to Favorites
                       </Button>
