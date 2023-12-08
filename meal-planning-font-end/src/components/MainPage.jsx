@@ -25,7 +25,8 @@ export default function MainPage() {
       <IngredientsForm />
       <IngredientsReadout />
       <RecipeReadout />
-      
+      <FavoriteRecipesList />
+
       <Box p="5">Count: {countValue}</Box>
       <Button mx="3" variant="outline" onClick={() => dispatch(add())}>
         Add
@@ -45,7 +46,13 @@ export default function MainPage() {
         Add Ingredient
       </Button>
 
-      {name === "about" ? <About /> : name === "favorites" ? <FavoriteRecipesList /> : <DefaultBody />}
+      {name === "about" ? (
+        <About />
+      ) : name === "favorites" ? (
+        <FavoriteRecipesList />
+      ) : (
+        <DefaultBody />
+      )}
     </>
   );
 }

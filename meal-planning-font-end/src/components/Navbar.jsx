@@ -7,10 +7,14 @@ import {
 } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const location= useLocation();
   const { isOpen, onToggle } = useDisclosure();
+  const favoriteRecipesList = useSelector(
+    (state) => state.favoriteRecipesList.value
+  );
 
   return (
     <>
@@ -45,7 +49,7 @@ export default function Navbar() {
               }
               borderColor={location.pathname === "/mainPage/favorites" && "red"}
             >
-              <Link to="/mainPage/favorites">Favorites</Link>
+              <Link to="/mainPage/favorites">{`Favorites(${favoriteRecipesList.length})`}</Link>
             </Box>
           </Box>
           <Box display={{ md: "none" }}>
@@ -86,7 +90,7 @@ export default function Navbar() {
               }
               borderColor={location.pathname === "/mainPage/favorites" && "red"}
             >
-              <Link to="/mainPage/favorites">Favorites</Link>
+              <Link to="/mainPage/favorites">{`Favorites(${favoriteRecipesList.length})`}</Link>
             </Box>
           </Collapse>
         </Box>

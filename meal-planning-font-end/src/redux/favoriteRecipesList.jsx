@@ -6,29 +6,24 @@ const favoriteRecipesList = createSlice({
     value: [],
   },
   reducers: {
-    addRecipe: (state, action) => {
-      let newIngredient = {
-        ingredient: action.payload.toLowerCase(),
-        ingredientId: crypto.randomUUID(),
-      };
-      let list = [...state.value, newIngredient];
+    addNewRecipeToFavorites: (state, action) => {
+      let list = [...state.value, action.payload];
       let updatedList = list.sort((a, b) => {
-        return a.ingredient.localeCompare(b.ingredient);
+        return a.title.localeCompare(b.title);
       });
-
       state.value = updatedList;
     },
 
-    removeRecipe: (state, action) => {
+    removeRecipeFromFavorites: (state, action) => {
       let updatedList = state.value.filter(
-        (item) => item.ingredientId !== action.payload
+        (item) => item.id !== action.payload
       );
       state.value = updatedList;
     },
   },
 });
 
-export const { addRecipe, removeRecipe } =
+export const { addNewRecipeToFavorites, removeRecipeFromFavorites } =
   favoriteRecipesList.actions;
 
 export default favoriteRecipesList.reducer;

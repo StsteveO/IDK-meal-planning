@@ -11,7 +11,6 @@ import {
   CardBody,
   CardFooter,
   Heading,
-  IconButton,
   Image,
   Link,
   Modal,
@@ -29,7 +28,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeList } from "../redux/recipeList";
 import { updateRecipeInstructions } from "../redux/recipeInstructions";
 import { updateRecipeTitle } from "../redux/recipeTitle";
-import { AddIcon, ExternalLinkIcon, ViewIcon } from "@chakra-ui/icons";
+import { addNewRecipeToFavorites, removeRecipeFromFavorites } from "../redux/favoriteRecipesList";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 export default function RecipeReadout() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -107,7 +107,8 @@ export default function RecipeReadout() {
     let recipeAddedToFavorites = recipes.find(
       (recipe) => recipe.id === clickedRecipe
     );
-    console.log(recipeAddedToFavorites)
+    console.log(recipeAddedToFavorites);
+    dispatch(addNewRecipeToFavorites(recipeAddedToFavorites));
   }
   return (
     <Box px="6" py="3">
