@@ -28,7 +28,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeList } from "../redux/recipeList";
 import { updateRecipeInstructions } from "../redux/recipeInstructions";
 import { updateRecipeTitle } from "../redux/recipeTitle";
-import { addNewRecipeToFavorites, removeRecipeFromFavorites } from "../redux/favoriteRecipesList";
+import {
+  addNewRecipeToFavorites,
+  removeRecipeFromFavorites,
+} from "../redux/favoriteRecipesList";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 export default function RecipeReadout() {
@@ -36,8 +39,13 @@ export default function RecipeReadout() {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredientList.value);
   const recipes = useSelector((state) => state.recipeList.value);
-  const recipeInstructions= useSelector((state)=> state.recipeInstructions.value);
+  const recipeInstructions = useSelector(
+    (state) => state.recipeInstructions.value
+  );
   const recipeTitle = useSelector((state) => state.recipeTitle.value);
+  const favoriteRecipesList = useSelector(
+    (state) => state.favoriteRecipesList.value
+  );
   // console.log(recipes);
   // console.log(spoonacularAPIKey);
   const updatedIngredientList = ingredients.map((item) => {
@@ -70,19 +78,19 @@ export default function RecipeReadout() {
       console.error(`Error getting recipes: ${error}`);
     }
   };
-  const getRecipeTitle = async (recipe_Id) =>{
-    try{
+  const getRecipeTitle = async (recipe_Id) => {
+    try {
       const response = await fetch(
         `https://api.spoonacular.com/recipes/${recipe_Id}/information?includeNutrition=false&apiKey=${spoonacularAPIKey}`
       );
-      const data= await response.json();
+      const data = await response.json();
       dispatch(updateRecipeTitle(data));
     } catch (error) {
       console.error(`Error getting recipe title: ${error}`);
-    } 
+    }
     console.log(`Recipe title worked!`);
     console.log(recipeTitle);
-  }
+  };
   const getRecipeInstructions = async (event) => {
     console.log(event.target.id);
     let recipeId = event.target.id;
@@ -101,15 +109,20 @@ export default function RecipeReadout() {
     onOpen();
     // console.log(recipeInstructions);
   };
-  const addRecipeToFavorites= (event) =>{
+  const addRecipeToFavorites = (event) => {
     console.log(Number(event.target.id));
-    let clickedRecipe= Number(event.target.id);
+    let clickedRecipe = Number(event.target.id);
     let recipeAddedToFavorites = recipes.find(
       (recipe) => recipe.id === clickedRecipe
     );
     console.log(recipeAddedToFavorites);
     dispatch(addNewRecipeToFavorites(recipeAddedToFavorites));
-  }
+  };
+  const removeRecipeFromFavoritesList = (event) => {
+    console.log(Number(event.target.id));
+    let clickedRecipe = Number(event.target.id);
+    dispatch(removeRecipeFromFavorites(clickedRecipe));
+  };
   return (
     <Box px="6" py="3">
       <Button onClick={getRecipes}>Get Recipes!</Button>
@@ -188,9 +201,15 @@ export default function RecipeReadout() {
                         borderRadius="lg"
                         // leftIcon={<AddIcon />}
                         id={recipe.id}
-                        onClick={addRecipeToFavorites}
+                        onClick={
+                          favoriteRecipesList.includes(recipe)
+                            ? removeRecipeFromFavoritesList
+                            : addRecipeToFavorites
+                        }
                       >
-                        Add to Favorites
+                        {favoriteRecipesList.includes(recipe)
+                          ? "Remove from Favorites"
+                          : "Add to Favorites"}
                       </Button>
                     </ButtonGroup>
                   </CardFooter>
@@ -266,7 +285,12 @@ export default function RecipeReadout() {
             </ModalBody>
             <ModalFooter>
               <ButtonGroup>
-                <Button borderRadius="lg" border="1px solid black">
+                <Button
+                  borderRadius="lg"
+                  border="1px solid black"
+                  id={recipeTitle.id}
+                >
+                  {/* favoriteRecipesList */}
                   Add to Favorites
                 </Button>
                 <Button

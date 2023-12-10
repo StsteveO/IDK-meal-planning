@@ -28,6 +28,7 @@ import { updateRecipeInstructions } from "../redux/recipeInstructions";
 import { updateRecipeTitle } from "../redux/recipeTitle";
 const spoonacularAPIKey = import.meta.env.VITE_spoonacularAPIKey;
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { addNewRecipeToFavorites, removeRecipeFromFavorites } from "../redux/favoriteRecipesList";
 
 export default function FavoriteRecipesList() {
   const recipeTitle = useSelector((state) => state.recipeTitle.value);
@@ -69,6 +70,11 @@ export default function FavoriteRecipesList() {
     }
     onOpen();
     // console.log(recipeInstructions);
+  };
+  const removeRecipeFromFavoritesList = (event) => {
+    console.log(Number(event.target.id));
+    let clickedRecipe = Number(event.target.id);
+    dispatch(removeRecipeFromFavorites(clickedRecipe));
   };
   return (
     <Box>
@@ -148,7 +154,7 @@ export default function FavoriteRecipesList() {
                         borderRadius="lg"
                         // leftIcon={<AddIcon />}
                         id={recipe.id}
-                        // onClick={addRecipeToFavorites}
+                        onClick={removeRecipeFromFavoritesList}
                       >
                         Remove from Favorites
                       </Button>
