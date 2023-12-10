@@ -10,6 +10,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Divider,
   Heading,
   Image,
   Link,
@@ -131,17 +132,20 @@ export default function RecipeReadout() {
           return (
             <Card
               key={recipe.id}
-              direction="row"
+              direction={{ base: "column", md: "row" }}
               m="4"
               variant="outline"
-              overflow="hidden"
+              overflow="auto"
               border="2px black solid"
             >
               <Image
                 src={recipe.image}
                 alt={`Image of ${recipe.title}`}
-                objectFit="cover"
-                // borderRadius="lg"
+                objectFit="contain"
+                maxWidth={{ base: "75%", md: "45%" }}
+                mx="auto"
+                mt={{ base: "6", md: "0px" }}
+                borderRadius={{ base: "lg", md: "none" }}
               />
               <CardBody>
                 <Stack>
@@ -172,10 +176,12 @@ export default function RecipeReadout() {
                     </AccordionItem>
                   </Accordion>
                   <CardFooter pl="0">
-                    <ButtonGroup>
+                    <ButtonGroup spacing="0" flexWrap="wrap">
                       <Button
                         border="1px black solid"
                         borderRadius="lg"
+                        mr="2"
+                        mb="3"
                         // leftIcon={<ViewIcon />}
                         id={recipe.id}
                         onClick={getRecipeInstructions}
