@@ -5,6 +5,7 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 // import { addIngredient } from "../redux/ingredientList";
@@ -12,12 +13,36 @@ import { formChange, clearForm } from "../redux/ingredientFormChange";
 import { addIngredient } from "../redux/ingredientList";
 
 export default function IngredientsForm() {
+  const toast= useToast();
+  const ingredientList = useSelector((state) => state.ingredientList.value);
   const dispatch = useDispatch();
   const handleFormChange = (e) => dispatch(formChange(e.target.value));
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addIngredient(formReading));
     dispatch(clearForm());
+
+    let repeatIngredient = ingredientList.find((item) => {
+      return item.ingredient === formReading;
+    });
+
+    if (repeatIngredient !== undefined) {
+      toast({
+        title: "Error",
+        description: "you already entered this ingredient",
+        status: "error",
+        duration: 4000, 
+      });
+    }
+
+    if (repeatIngredient === undefined) {
+      toast({
+        title: "Success",
+        description: "your ingredient has been successfully added",
+        status: "success",
+        duration: 4000,
+      });
+    }
   };
   const formReading = useSelector((state) => state.ingredientFormChange.value);
   return (

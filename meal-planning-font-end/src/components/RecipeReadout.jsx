@@ -25,6 +25,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 const spoonacularAPIKey = import.meta.env.VITE_spoonacularAPIKey;
+import { addIngredient } from "../redux/ingredientList";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeList } from "../redux/recipeList";
 import { updateRecipeInstructions } from "../redux/recipeInstructions";
@@ -34,6 +35,7 @@ import {
   removeRecipeFromFavorites,
 } from "../redux/favoriteRecipesList";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { useEffect } from "react";
 
 export default function RecipeReadout() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -124,6 +126,14 @@ export default function RecipeReadout() {
     let clickedRecipe = Number(event.target.id);
     dispatch(removeRecipeFromFavorites(clickedRecipe));
   };
+  useEffect(()=>{
+    const storedIngredientsList = JSON.parse(localStorage.getItem("ingredient list"));
+    if(storedIngredientsList){
+      storedIngredientsList.forEach((item)=>{
+        dispatch(addIngredient(item.ingredient));
+      });
+    }
+  }, []);
   return (
     <Box px="6" py="3">
       <Button onClick={getRecipes}>Get Recipes!</Button>
