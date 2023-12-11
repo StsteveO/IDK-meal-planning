@@ -22,6 +22,7 @@ import {
   ModalOverlay,
   Stack,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRecipeInstructions } from "../redux/recipeInstructions";
@@ -32,6 +33,7 @@ import { addNewRecipeToFavorites, removeRecipeFromFavorites } from "../redux/fav
 import { useEffect } from "react";
 
 export default function FavoriteRecipesList() {
+  const toast = useToast();
   const recipeTitle = useSelector((state) => state.recipeTitle.value);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,6 +79,12 @@ export default function FavoriteRecipesList() {
     console.log(Number(event.target.id));
     let clickedRecipe = Number(event.target.id);
     dispatch(removeRecipeFromFavorites(clickedRecipe));
+    toast({
+      title: "Success",
+      description: "recipe removed from favorite(s) list",
+      status: "success",
+      duration: 4000,
+    });
   };
   // const addRecipeToFavorites = (event) => {
   //   console.log(Number(event.target.id));
@@ -147,7 +155,7 @@ export default function FavoriteRecipesList() {
                     </AccordionItem>
                   </Accordion> */}
                   <CardFooter pl="0">
-                    {/* pt={{ base: "0px", md: "15%" }} */}
+                    {/* pt={{ base: "0px", md: "15%" }} for card footer */}
                     <ButtonGroup spacing="0" flexWrap="wrap">
                       <Button
                         border="1px black solid"

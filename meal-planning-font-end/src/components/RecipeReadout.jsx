@@ -23,6 +23,7 @@ import {
   ModalOverlay,
   Stack,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 const spoonacularAPIKey = import.meta.env.VITE_spoonacularAPIKey;
 import { addIngredient } from "../redux/ingredientList";
@@ -38,6 +39,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { useEffect } from "react";
 
 export default function RecipeReadout() {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredientList.value);
@@ -120,11 +122,23 @@ export default function RecipeReadout() {
     );
     console.log(recipeAddedToFavorites);
     dispatch(addNewRecipeToFavorites(recipeAddedToFavorites));
+    toast({
+      title: "Success",
+      description: "recipe added to favorite(s) list",
+      status: "success",
+      duration: 4000,
+    });
   };
   const removeRecipeFromFavoritesList = (event) => {
     console.log(Number(event.target.id));
     let clickedRecipe = Number(event.target.id);
     dispatch(removeRecipeFromFavorites(clickedRecipe));
+    toast({
+      title: "Success",
+      description: "recipe removed from favorite(s) list",
+      status: "success",
+      duration: 4000,
+    });
   };
   useEffect(()=>{
     const storedIngredientsList = JSON.parse(localStorage.getItem("ingredient list"));
