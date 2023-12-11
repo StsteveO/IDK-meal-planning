@@ -301,14 +301,13 @@ export default function RecipeReadout() {
             </ModalBody>
             <ModalFooter>
               <ButtonGroup>
-                <Button
+                {/* <Button
                   borderRadius="lg"
                   border="1px solid black"
                   id={recipeTitle.id}
                 >
-                  {/* favoriteRecipesList */}
                   Add to Favorites
-                </Button>
+                </Button> */}
                 <Button
                   onClick={onClose}
                   borderRadius="lg"

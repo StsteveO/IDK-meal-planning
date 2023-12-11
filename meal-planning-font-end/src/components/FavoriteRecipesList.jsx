@@ -29,11 +29,13 @@ import { updateRecipeTitle } from "../redux/recipeTitle";
 const spoonacularAPIKey = import.meta.env.VITE_spoonacularAPIKey;
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { addNewRecipeToFavorites, removeRecipeFromFavorites } from "../redux/favoriteRecipesList";
+import { useEffect } from "react";
 
 export default function FavoriteRecipesList() {
   const recipeTitle = useSelector((state) => state.recipeTitle.value);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const recipes = useSelector((state) => state.recipeList.value);
   const recipeInstructions = useSelector(
     (state) => state.recipeInstructions.value
   );
@@ -76,6 +78,23 @@ export default function FavoriteRecipesList() {
     let clickedRecipe = Number(event.target.id);
     dispatch(removeRecipeFromFavorites(clickedRecipe));
   };
+  // const addRecipeToFavorites = (event) => {
+  //   console.log(Number(event.target.id));
+  //   let clickedRecipe = Number(event.target.id);
+  //   let recipeAddedToFavorites = recipes.find(
+  //     (recipe) => recipe.id === clickedRecipe
+  //   );
+  //   console.log(recipeAddedToFavorites);
+  //   dispatch(addNewRecipeToFavorites(recipeAddedToFavorites));
+  // };
+  useEffect(()=>{
+    const storedFavoriteRecipesList = JSON.parse(localStorage.getItem("favorite recipes list"));
+    if(storedFavoriteRecipesList){
+      storedFavoriteRecipesList.forEach((item)=>{
+        dispatch(addNewRecipeToFavorites(item));
+      });
+    }
+  }, []);
   return (
     <Box>
       <div>FavoriteRecipesList</div>
@@ -84,22 +103,25 @@ export default function FavoriteRecipesList() {
           return (
             <Card
               key={recipe.id}
-              direction="row"
+              direction={{ base: "column", md: "row" }}
               m="4"
               variant="outline"
-              overflow="hidden"
+              overflow="auto"
               border="2px black solid"
             >
               <Image
                 src={recipe.image}
                 alt={`Image of ${recipe.title}`}
-                objectFit="cover"
-                // borderRadius="lg"
+                objectFit="contain"
+                maxWidth={{ base: "75%", md: "45%" }}
+                mx="auto"
+                mt={{ base: "6", md: "0px" }}
+                borderRadius={{ base: "lg", md: "none" }}
               />
               <CardBody>
                 <Stack>
                   <Heading size="md">{recipe.title}</Heading>
-                  <Accordion defaultIndex={[]} allowMultiple>
+                  {/* <Accordion defaultIndex={[]} allowMultiple>
                     <AccordionItem
                       border="1px black solid"
                       borderRadius="lg"
@@ -123,12 +145,15 @@ export default function FavoriteRecipesList() {
                         </ul>
                       </AccordionPanel>
                     </AccordionItem>
-                  </Accordion>
+                  </Accordion> */}
                   <CardFooter pl="0">
-                    <ButtonGroup>
+                    {/* pt={{ base: "0px", md: "15%" }} */}
+                    <ButtonGroup spacing="0" flexWrap="wrap">
                       <Button
                         border="1px black solid"
                         borderRadius="lg"
+                        mr="2"
+                        mb="3"
                         // leftIcon={<ViewIcon />}
                         id={recipe.id}
                         onClick={getRecipeInstructions}
@@ -232,9 +257,19 @@ export default function FavoriteRecipesList() {
             </ModalBody>
             <ModalFooter>
               <ButtonGroup>
-                <Button borderRadius="lg" border="1px solid black">
-                  Add to Favorites
-                </Button>
+                {/* <Button
+                  borderRadius="lg"
+                  border="1px solid black"
+                  onClick={
+                    favoriteRecipesList.includes(recipeTitle)
+                      ? removeRecipeFromFavoritesList
+                      : addRecipeToFavorites
+                  }
+                >
+                  {favoriteRecipesList.includes(recipeTitle)
+                    ? "Remove from Favorites"
+                    : "Add to Favorites"}
+                </Button> */}
                 <Button
                   onClick={onClose}
                   borderRadius="lg"

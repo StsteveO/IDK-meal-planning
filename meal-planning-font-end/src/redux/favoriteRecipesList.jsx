@@ -7,11 +7,18 @@ const favoriteRecipesList = createSlice({
   },
   reducers: {
     addNewRecipeToFavorites: (state, action) => {
-      let list = [...state.value, action.payload];
-      let updatedList = list.sort((a, b) => {
-        return a.title.localeCompare(b.title);
+      let repeatRecipe = state.value.find((item)=>{
+        return item.id === action.payload.id;
       });
-      state.value = updatedList;
+
+      if(repeatRecipe === undefined){
+        let list = [...state.value, action.payload];
+        let updatedList = list.sort((a, b) => {
+          return a.title.localeCompare(b.title);
+        });
+        state.value = updatedList;
+        localStorage.setItem("favorite recipes list", JSON.stringify(state.value));
+      }
     },
 
     removeRecipeFromFavorites: (state, action) => {
@@ -19,6 +26,7 @@ const favoriteRecipesList = createSlice({
         (item) => item.id !== action.payload
       );
       state.value = updatedList;
+      localStorage.setItem("favorite recipes list", JSON.stringify(state.value));
     },
   },
 });
