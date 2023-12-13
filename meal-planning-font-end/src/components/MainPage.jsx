@@ -22,12 +22,12 @@ export default function MainPage() {
   return (
     <>
       <Navbar />
-      <IngredientsForm />
+      {/* <IngredientsForm />
       <IngredientsReadout />
-      <RecipeReadout />
-      <FavoriteRecipesList />
+      <RecipeReadout /> */}
+      {/* <FavoriteRecipesList /> */}
 
-      <Box p="5">Count: {countValue}</Box>
+      {/* <Box p="5">Count: {countValue}</Box>
       <Button mx="3" variant="outline" onClick={() => dispatch(add())}>
         Add
       </Button>
@@ -37,14 +37,14 @@ export default function MainPage() {
       <Button mx="3" variant="outline" onClick={() => dispatch(addBy(50))}>
         Add 50
       </Button>
-      {/* {console.log(ingredients)} */}
+      {console.log(ingredients)}
       <Button
         mx="3"
         variant="outline"
         onClick={() => dispatch(addIngredient("CHerry"))}
       >
         Add Ingredient
-      </Button>
+      </Button> */}
 
       {name === "about" ? (
         <About />

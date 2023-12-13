@@ -34,6 +34,9 @@ import { useEffect } from "react";
 
 export default function FavoriteRecipesList() {
   const toast = useToast();
+  const applicationColors = useSelector(
+    (state) => state.applicationColors.value
+  );
   const recipeTitle = useSelector((state) => state.recipeTitle.value);
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -105,7 +108,7 @@ export default function FavoriteRecipesList() {
   }, []);
   return (
     <Box>
-      <div>FavoriteRecipesList</div>
+      <Heading mx="4" my="6">Favorites</Heading>
       <Box>
         {favoriteRecipesList.map((recipe) => {
           return (
@@ -158,6 +161,12 @@ export default function FavoriteRecipesList() {
                     {/* pt={{ base: "0px", md: "15%" }} for card footer */}
                     <ButtonGroup spacing="0" flexWrap="wrap">
                       <Button
+                        bg={applicationColors.primaryColor}
+                        color={applicationColors.backgroundColor}
+                        _hover={{
+                          color: "black",
+                          bg: applicationColors.secondaryColor,
+                        }}
                         border="1px black solid"
                         borderRadius="lg"
                         mr="2"
@@ -183,6 +192,12 @@ export default function FavoriteRecipesList() {
                           </ModalContent>
                         </Modal> */}
                       <Button
+                        bg={applicationColors.primaryColor}
+                        color={applicationColors.backgroundColor}
+                        _hover={{
+                          color: "black",
+                          bg: applicationColors.secondaryColor,
+                        }}
                         border="1px black solid"
                         borderRadius="lg"
                         // leftIcon={<AddIcon />}
@@ -279,6 +294,12 @@ export default function FavoriteRecipesList() {
                     : "Add to Favorites"}
                 </Button> */}
                 <Button
+                  bg={applicationColors.primaryColor}
+                  color={applicationColors.backgroundColor}
+                  _hover={{
+                    color: "black",
+                    bg: applicationColors.secondaryColor,
+                  }}
                   onClick={onClose}
                   borderRadius="lg"
                   border="1px solid black"

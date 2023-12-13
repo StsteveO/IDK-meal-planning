@@ -14,6 +14,9 @@ import { addIngredient } from "../redux/ingredientList";
 
 export default function IngredientsForm() {
   const toast= useToast();
+  const applicationColors = useSelector(
+    (state) => state.applicationColors.value
+  );
   const ingredientList = useSelector((state) => state.ingredientList.value);
   const dispatch = useDispatch();
   const handleFormChange = (e) => dispatch(formChange(e.target.value));
@@ -50,7 +53,7 @@ export default function IngredientsForm() {
       <Box p="6">
         <form onSubmit={handleSubmit}>
           <FormControl isRequired>
-            <FormLabel>Ingredient</FormLabel>
+            <FormLabel>Type one ingredient</FormLabel>
             <Input
               type="text"
               size="lg"
@@ -58,9 +61,17 @@ export default function IngredientsForm() {
               onChange={handleFormChange}
               value={formReading}
             />
-            <FormHelperText>Type single ingredient</FormHelperText>
+            <FormHelperText>Click Enter Ingredient to Submit</FormHelperText>
           </FormControl>
-          <Button type="submit" mt="6">Enter Ingredient</Button>
+          <Button
+            type="submit"
+            mt="6"
+            bg={applicationColors.primaryColor}
+            color={applicationColors.backgroundColor}
+            _hover={{ color: "black", bg: applicationColors.secondaryColor }}
+          >
+            Enter Ingredient
+          </Button>
         </form>
       </Box>
     </>

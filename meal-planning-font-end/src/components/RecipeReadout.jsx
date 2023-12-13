@@ -44,6 +44,7 @@ export default function RecipeReadout() {
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredientList.value);
   const recipes = useSelector((state) => state.recipeList.value);
+  const applicationColors = useSelector((state) => state.applicationColors.value);
   const recipeInstructions = useSelector(
     (state) => state.recipeInstructions.value
   );
@@ -140,6 +141,16 @@ export default function RecipeReadout() {
       duration: 4000,
     });
   };
+  useEffect(() => {
+    const storedFavoriteRecipesList = JSON.parse(
+      localStorage.getItem("favorite recipes list")
+    );
+    if (storedFavoriteRecipesList) {
+      storedFavoriteRecipesList.forEach((item) => {
+        dispatch(addNewRecipeToFavorites(item));
+      });
+    }
+  }, []);
   useEffect(()=>{
     const storedIngredientsList = JSON.parse(localStorage.getItem("ingredient list"));
     if(storedIngredientsList){
@@ -150,7 +161,14 @@ export default function RecipeReadout() {
   }, []);
   return (
     <Box px="6" py="3">
-      <Button onClick={getRecipes}>Get Recipes!</Button>
+      <Button
+        onClick={getRecipes}
+        bg={applicationColors.primaryColor}
+        color={applicationColors.backgroundColor}
+        _hover={{ color: "black", bg: applicationColors.secondaryColor }}
+      >
+        Get Recipes!
+      </Button>
       <Box>
         {recipes.map((recipe) => {
           return (
@@ -161,6 +179,7 @@ export default function RecipeReadout() {
               variant="outline"
               overflow="auto"
               border="2px black solid"
+              boxShadow="lg"
             >
               <Image
                 src={recipe.image}
@@ -202,6 +221,12 @@ export default function RecipeReadout() {
                   <CardFooter pl="0">
                     <ButtonGroup spacing="0" flexWrap="wrap">
                       <Button
+                        bg={applicationColors.primaryColor}
+                        color={applicationColors.backgroundColor}
+                        _hover={{
+                          color: "black",
+                          bg: applicationColors.secondaryColor,
+                        }}
                         border="1px black solid"
                         borderRadius="lg"
                         mr="2"
@@ -227,6 +252,12 @@ export default function RecipeReadout() {
                         </ModalContent>
                       </Modal> */}
                       <Button
+                        bg={applicationColors.primaryColor}
+                        color={applicationColors.backgroundColor}
+                        _hover={{
+                          color: "black",
+                          bg: applicationColors.secondaryColor,
+                        }}
                         border="1px black solid"
                         borderRadius="lg"
                         // leftIcon={<AddIcon />}
@@ -323,6 +354,12 @@ export default function RecipeReadout() {
                   Add to Favorites
                 </Button> */}
                 <Button
+                  bg={applicationColors.primaryColor}
+                  color={applicationColors.backgroundColor}
+                  _hover={{
+                    color: "black",
+                    bg: applicationColors.secondaryColor,
+                  }}
                   onClick={onClose}
                   borderRadius="lg"
                   border="1px solid black"

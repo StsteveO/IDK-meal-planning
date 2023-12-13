@@ -8,46 +8,61 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
+import logoSVG from "../assets/appFavicon.svg";
 
 export default function Navbar() {
   const location= useLocation();
   const { isOpen, onToggle } = useDisclosure();
+  const applicationColors = useSelector(
+    (state) => state.applicationColors.value
+  );
   const favoriteRecipesList = useSelector(
     (state) => state.favoriteRecipesList.value
   );
 
   return (
     <>
-      <Box bg="silver" borderRadius="xl" p="6">
+      <Box
+        bg={applicationColors.accentColor}
+        borderRadius="xl"
+        p="6"
+        boxShadow="lg"
+        fontSize="lg"
+        py="0"
+      >
         <Box display="flex" alignItems="center">
-          <Box>(Logo goes here)</Box>
+          <Box boxSize="15rem" display="flex" alignItems="center">
+            <img src={logoSVG} />
+          </Box>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }} gap="6">
             <Box>
               <Link to="/">Cover Page</Link>
             </Box>
             <Box
-              color={location.pathname === "/mainPage/:" && "red"}
+              color={location.pathname === "/mainPage/:" && "black"}
               borderBottom={location.pathname === "/mainPage/:" && "3px solid"}
-              borderColor={location.pathname === "/mainPage/:" && "red"}
+              borderColor={location.pathname === "/mainPage/:" && "black"}
             >
               <Link to="/mainPage/:">Home</Link>
             </Box>
             <Box
-              color={location.pathname === "/mainPage/about" && "red"}
+              color={location.pathname === "/mainPage/about" && "black"}
               borderBottom={
                 location.pathname === "/mainPage/about" && "3px solid"
               }
-              borderColor={location.pathname === "/mainPage/about" && "red"}
+              borderColor={location.pathname === "/mainPage/about" && "black"}
             >
               <Link to="/mainPage/about">About</Link>
             </Box>
             <Box
-              color={location.pathname === "/mainPage/favorites" && "red"}
+              color={location.pathname === "/mainPage/favorites" && "black"}
               borderBottom={
                 location.pathname === "/mainPage/favorites" && "3px solid"
               }
-              borderColor={location.pathname === "/mainPage/favorites" && "red"}
+              borderColor={
+                location.pathname === "/mainPage/favorites" && "black"
+              }
             >
               <Link to="/mainPage/favorites">{`Favorites(${favoriteRecipesList.length})`}</Link>
             </Box>
@@ -67,28 +82,30 @@ export default function Navbar() {
             </Box>
             <Box
               mb="2"
-              color={location.pathname === "/mainPage/:" && "red"}
+              color={location.pathname === "/mainPage/:" && "black"}
               borderBottom={location.pathname === "/mainPage/:" && "3px solid"}
-              borderColor={location.pathname === "/mainPage/:" && "red"}
+              borderColor={location.pathname === "/mainPage/:" && "black"}
             >
               <Link to="/mainPage/:">Home</Link>
             </Box>
             <Box
               mb="2"
-              color={location.pathname === "/mainPage/about" && "red"}
+              color={location.pathname === "/mainPage/about" && "black"}
               borderBottom={
                 location.pathname === "/mainPage/about" && "3px solid"
               }
-              borderColor={location.pathname === "/mainPage/about" && "red"}
+              borderColor={location.pathname === "/mainPage/about" && "black"}
             >
               <Link to="/mainPage/about">About</Link>
             </Box>
             <Box
-              color={location.pathname === "/mainPage/favorites" && "red"}
+              color={location.pathname === "/mainPage/favorites" && "black"}
               borderBottom={
                 location.pathname === "/mainPage/favorites" && "3px solid"
               }
-              borderColor={location.pathname === "/mainPage/favorites" && "red"}
+              borderColor={
+                location.pathname === "/mainPage/favorites" && "black"
+              }
             >
               <Link to="/mainPage/favorites">{`Favorites(${favoriteRecipesList.length})`}</Link>
             </Box>

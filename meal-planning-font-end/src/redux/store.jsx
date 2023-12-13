@@ -6,6 +6,7 @@ import recipeList from './recipeList';
 import recipeInstructions from './recipeInstructions';
 import recipeTitle from './recipeTitle';
 import favoriteRecipesList from './favoriteRecipesList';
+import applicationColors from './applicationColors';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     recipeInstructions: recipeInstructions,
     recipeTitle: recipeTitle,
     favoriteRecipesList: favoriteRecipesList,
+    applicationColors: applicationColors,
   },
 });
 

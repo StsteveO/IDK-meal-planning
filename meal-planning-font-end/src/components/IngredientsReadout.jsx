@@ -5,6 +5,9 @@ import { removeIngredient } from "../redux/ingredientList";
 
 export default function IngredientsReadout() {
   const ingredients = useSelector((state) => state.ingredientList.value);
+  const applicationColors = useSelector(
+    (state) => state.applicationColors.value
+  );
   const dispatch= useDispatch();
   const removeIngredientFromList= (e)=>{dispatch(removeIngredient(e.target.id));};
   return (
@@ -17,10 +20,14 @@ export default function IngredientsReadout() {
           return (
             <Box
               key={ingredient.ingredientId}
-              border="2px solid black"
+              // border="2px solid black"
               borderRadius="lg"
               display="flex"
               alignItems="center"
+              bg={applicationColors.secondaryColor}
+              boxShadow="lg"
+              pr="2"
+              py="1"
             >
               <Box p="3">{ingredient.ingredient}</Box>
               <IconButton
@@ -28,6 +35,7 @@ export default function IngredientsReadout() {
                 id={ingredient.ingredientId}
                 icon={<CloseIcon pointerEvents="none" />}
                 onClick={removeIngredientFromList}
+                // bg={applicationColors.primaryColor}
               />
             </Box>
           );
