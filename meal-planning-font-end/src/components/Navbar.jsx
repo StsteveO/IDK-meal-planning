@@ -32,13 +32,15 @@ export default function Navbar() {
       >
         <Box display="flex" alignItems="center">
           <Box boxSize="15rem" display="flex" alignItems="center">
-            <img src={logoSVG} alt="IDKMeals Logo" />
+            <Link to="/">
+              <img src={logoSVG} alt="IDKMeals Logo" />
+            </Link>
           </Box>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }} gap="6">
-            <Box>
+            {/* <Box>
               <Link to="/">Cover Page</Link>
-            </Box>
+            </Box> */}
             <Box
               color={location.pathname === "/mainPage/:" && "black"}
               borderBottom={location.pathname === "/mainPage/:" && "3px solid"}
@@ -77,9 +79,9 @@ export default function Navbar() {
         </Box>
         <Box mt="3" display={{ md: "none" }}>
           <Collapse in={isOpen} animateOpacity>
-            <Box mb="2">
+            {/* <Box mb="2">
               <Link to="/">Cover Page</Link>
-            </Box>
+            </Box> */}
             <Box
               mb="2"
               color={location.pathname === "/mainPage/:" && "black"}
