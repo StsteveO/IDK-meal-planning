@@ -101,6 +101,7 @@ export default function Navbar() {
               <Link to="/mainPage/about">About</Link>
             </Box>
             <Box
+            pb="4"
               color={location.pathname === "/mainPage/favorites" && "black"}
               borderBottom={
                 location.pathname === "/mainPage/favorites" && "3px solid"
