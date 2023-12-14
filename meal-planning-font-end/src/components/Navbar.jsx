@@ -32,7 +32,7 @@ export default function Navbar() {
       >
         <Box display="flex" alignItems="center">
           <Box boxSize="15rem" display="flex" alignItems="center">
-            <img src={logoSVG} />
+            <img src={logoSVG} alt="IDKMeals Logo" />
           </Box>
           <Spacer />
           <Box display={{ base: "none", md: "flex" }} gap="6">

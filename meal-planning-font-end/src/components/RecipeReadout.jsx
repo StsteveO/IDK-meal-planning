@@ -10,6 +10,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Center,
   Divider,
   Heading,
   Image,
@@ -116,7 +117,7 @@ export default function RecipeReadout() {
     // console.log(recipeInstructions);
   };
   const addRecipeToFavorites = (event) => {
-    console.log(Number(event.target.id));
+    // console.log(Number(event.target.id));
     let clickedRecipe = Number(event.target.id);
     let recipeAddedToFavorites = recipes.find(
       (recipe) => recipe.id === clickedRecipe
@@ -169,114 +170,134 @@ export default function RecipeReadout() {
       >
         Get Recipes!
       </Button>
+      {recipes.length === 0 && (
+        <Box border="2px dashed gray" py="6" mt="5">
+          <Center>No recipes in list.</Center>
+        </Box>
+      )}
       <Box>
         {recipes.map((recipe) => {
           return (
-            <Card
+            <Box
               key={recipe.id}
-              direction={{ base: "column", md: "row" }}
-              m="4"
-              variant="outline"
-              overflow="auto"
-              border="2px black solid"
-              boxShadow="lg"
+              // display={
+              //   recipe.image ===
+              //     "https://spoonacular.com/recipeImages/157103-312x231.jpg" &&
+              //   "none"
+              // }
             >
-              <Image
-                src={recipe.image}
-                alt={`Image of ${recipe.title}`}
-                objectFit="contain"
-                maxWidth={{ base: "75%", md: "45%" }}
-                mx="auto"
-                mt={{ base: "6", md: "0px" }}
-                borderRadius={{ base: "lg", md: "none" }}
-              />
-              <CardBody>
-                <Stack>
-                  <Heading size="md">{recipe.title}</Heading>
-                  <Accordion defaultIndex={[]} allowMultiple>
-                    <AccordionItem
-                      border="1px black solid"
-                      borderRadius="lg"
-                      p="2"
-                    >
-                      <AccordionButton>
-                        <Box as="span" flex="1" textAlign="left">
-                          Missing Ingredients ({recipe.missedIngredientCount})
-                        </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                      <AccordionPanel>
-                        <ul>
-                          {recipe.missedIngredients.map((missedIngredient) => {
-                            return (
-                              <li key={missedIngredient.id}>
-                                {missedIngredient.name}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </AccordionPanel>
-                    </AccordionItem>
-                  </Accordion>
-                  <CardFooter pl="0">
-                    <ButtonGroup spacing="0" flexWrap="wrap">
-                      <Button
-                        bg={applicationColors.primaryColor}
-                        color={applicationColors.backgroundColor}
-                        _hover={{
-                          color: "black",
-                          bg: applicationColors.secondaryColor,
-                        }}
+              <Card
+                key={recipe.id}
+                direction={{ base: "column", md: "row" }}
+                m="4"
+                variant="outline"
+                overflow="auto"
+                border="2px black solid"
+                boxShadow="lg"
+              >
+                <Image
+                  src={recipe.image}
+                  alt={`Image of ${recipe.title}`}
+                  objectFit="contain"
+                  maxWidth={{ base: "75%", md: "45%" }}
+                  mx="auto"
+                  mt={{ base: "6", md: "0px" }}
+                  borderRadius={{ base: "lg", md: "none" }}
+                />
+                <CardBody>
+                  <Stack>
+                    <Heading size="md">{recipe.title}</Heading>
+                    <Accordion defaultIndex={[]} allowMultiple>
+                      <AccordionItem
                         border="1px black solid"
                         borderRadius="lg"
-                        mr="2"
-                        mb="3"
-                        // leftIcon={<ViewIcon />}
-                        id={recipe.id}
-                        onClick={getRecipeInstructions}
-                        // onClick={onOpen}
+                        p="2"
                       >
-                        View Recipe
-                      </Button>
-                      {/* <Modal
-                        isOpen={isOpen}
-                        onClose={onClose}
-                        closeOnOverlayClick={false}
-                      >
-                        <ModalOverlay bg="blackAlpha.200" />
-                        <ModalContent>
-                          <ModalHeader>Header</ModalHeader>
-                          <ModalCloseButton />
-                          <ModalBody>Body</ModalBody>
-                          <ModalFooter>Footer</ModalFooter>
-                        </ModalContent>
-                      </Modal> */}
-                      <Button
-                        bg={applicationColors.primaryColor}
-                        color={applicationColors.backgroundColor}
-                        _hover={{
-                          color: "black",
-                          bg: applicationColors.secondaryColor,
-                        }}
-                        border="1px black solid"
-                        borderRadius="lg"
-                        // leftIcon={<AddIcon />}
-                        id={recipe.id}
-                        onClick={
-                          favoriteRecipesList.includes(recipe)
-                            ? removeRecipeFromFavoritesList
-                            : addRecipeToFavorites
-                        }
-                      >
-                        {favoriteRecipesList.includes(recipe)
-                          ? "Remove from Favorites"
-                          : "Add to Favorites"}
-                      </Button>
-                    </ButtonGroup>
-                  </CardFooter>
-                </Stack>
-              </CardBody>
-            </Card>
+                        <AccordionButton>
+                          <Box as="span" flex="1" textAlign="left">
+                            Missing Ingredients ({recipe.missedIngredientCount})
+                          </Box>
+                          <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel>
+                          <ul>
+                            {recipe.missedIngredients.map(
+                              (missedIngredient) => {
+                                return (
+                                  <li key={missedIngredient.id}>
+                                    {missedIngredient.name}
+                                  </li>
+                                );
+                              }
+                            )}
+                          </ul>
+                        </AccordionPanel>
+                      </AccordionItem>
+                    </Accordion>
+                    <CardFooter pl="0">
+                      <ButtonGroup spacing="0" flexWrap="wrap">
+                        <Button
+                          bg={applicationColors.primaryColor}
+                          color={applicationColors.backgroundColor}
+                          _hover={{
+                            color: "black",
+                            bg: applicationColors.secondaryColor,
+                          }}
+                          border="1px black solid"
+                          borderRadius="lg"
+                          mr="2"
+                          mb="3"
+                          // leftIcon={<ViewIcon />}
+                          id={recipe.id}
+                          onClick={getRecipeInstructions}
+                          // onClick={onOpen}
+                        >
+                          View Recipe
+                        </Button>
+                        {/* <Modal
+                          isOpen={isOpen}
+                          onClose={onClose}
+                          closeOnOverlayClick={false}
+                        >
+                          <ModalOverlay bg="blackAlpha.200" />
+                          <ModalContent>
+                            <ModalHeader>Header</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>Body</ModalBody>
+                            <ModalFooter>Footer</ModalFooter>
+                          </ModalContent>
+                        </Modal> */}
+                        <Button
+                          bg={applicationColors.primaryColor}
+                          color={applicationColors.backgroundColor}
+                          _hover={{
+                            color: "black",
+                            bg: applicationColors.secondaryColor,
+                          }}
+                          border="1px black solid"
+                          borderRadius="lg"
+                          // leftIcon={<AddIcon />}
+                          id={recipe.id}
+                          onClick={
+                            favoriteRecipesList.some((item) => {
+                              return item.id === recipe.id;
+                            })
+                              ? removeRecipeFromFavoritesList
+                              : addRecipeToFavorites
+                          }
+                        >
+                          {favoriteRecipesList.some((item) => {
+                            return item.id === recipe.id;
+                          })
+                            ? "Remove from Favorites"
+                            : "Add to Favorites"}
+                        </Button>
+                      </ButtonGroup>
+                    </CardFooter>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </Box>
           );
         })}
       </Box>

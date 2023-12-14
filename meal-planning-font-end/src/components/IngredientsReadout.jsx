@@ -1,5 +1,5 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Box, IconButton } from "@chakra-ui/react";
+import { Box, Center, IconButton } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeIngredient } from "../redux/ingredientList";
 
@@ -15,6 +15,11 @@ export default function IngredientsReadout() {
       <Box px="6" py="3">
         Ingredients({ingredients.length}):
       </Box>
+      {ingredients.length===0 && <Box border="2px dashed gray" mx="6" py="6" mt="3">
+        <Center>
+          No ingredients in list, enter some.
+        </Center>
+        </Box>}
       <Box px="6" py="3" display="flex" gap="2" flexWrap="wrap">
         {ingredients.map((ingredient) => {
           return (
